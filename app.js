@@ -3,9 +3,15 @@ const express = require('express');
 const Case = require('./lib/database');
 
 const PORT = process.env.PORT || 5000;
+const cors = require('cors');
+
+
 
 const app = express();
 app.use(express.json());
+app.use(cors());
+app.options('*', cors())
+
 
 app.get('/api/v1', function (req, res) {
 	let country = req.query.country;
@@ -18,7 +24,7 @@ app.get('/api/v1', function (req, res) {
 			}
 			res.status(200).json(docs);
 		});
-		return
+		return;
 	}
 
 	const firstChar = country[0].toUpperCase();
